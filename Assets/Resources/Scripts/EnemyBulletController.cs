@@ -12,7 +12,7 @@ public class EnemyBulletController : MonoBehaviour
             if (Vector3.Distance(PlayerController.instance.transform.position, transform.position) <= 1f)
             {
                 PlayerController.instance.playerHealth -= damage;
-                UIManager.instance.UpdateHealth();
+                UIManager.instance.GetHit();
                 if (PlayerController.instance.playerHealth > 0)
                     CameraShake.Invoke();
                 Destroy(gameObject);

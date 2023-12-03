@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject aliveScreen;
     [SerializeField] private GameObject deathScreen;
     [SerializeField] private GameObject winScreen;
+    [SerializeField] private GameObject hitRed;
 
     private float waitTime;
 
@@ -61,6 +62,13 @@ public class UIManager : MonoBehaviour
     public void UpdateAmmo()
     {
         ammoText.text = GunController.instance.currentAmmo + "/" + GunController.instance.totalAmmo;
+    }
+
+    public void GetHit()
+    {
+        GameObject hit = Instantiate(hitRed, transform, false);
+        hit.GetComponent<Animator>().Play("Fade Out");
+        UpdateHealth();
     }
 
     public void Win()

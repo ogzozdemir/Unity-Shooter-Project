@@ -25,8 +25,6 @@ public class GameController : MonoBehaviour
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         enemiesTotal = enemies.Length;
-        
-        UIManager.instance.UpdateEnemyCount(enemiesKilled, enemiesTotal);
     }
 
     private void Update()
