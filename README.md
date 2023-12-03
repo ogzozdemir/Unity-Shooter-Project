@@ -1,6 +1,6 @@
 # Unity-Shooter-Project
 
-Welcome to my first FPS game with the aim of expanding my portfolio quickly. The game is quite short and simple. Our goal is to kill enemies, yes, just that.
+Welcome to my first FPS game​​ I quickly created with the aim of expanding my portfolio. The game is quite short and simple. Our goal is to kill enemies, yes, just that.
 
 **Features:**
 
