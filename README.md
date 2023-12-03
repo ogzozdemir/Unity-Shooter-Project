@@ -6,7 +6,7 @@ Welcome to my first FPS game​​ I quickly created with the aim of expanding m
 
 - Player's FPS Controller (of course)
 - Firefight with enemies (enemy pathfinding with navmesh)
-- Pistol animations and bullet shell casing ejection (only the animations made by me)
+- Pistol animations and bullet shell casing ejection (animations were made by me)
 - Interaction with objects (health and ammo packs)
 - Camera shake and particle effects
 - Sound effects
