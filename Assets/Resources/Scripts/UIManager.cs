@@ -27,6 +27,8 @@ public class UIManager : MonoBehaviour
         aliveScreen.SetActive(true);
         deathScreen.SetActive(false);
         winScreen.SetActive(false);
+        
+        UpdateEnemyCount(GameController.instance.enemiesKilled, GameController.instance.enemiesTotal);
     }
 
     private void Update()

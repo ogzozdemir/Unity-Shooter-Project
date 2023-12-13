@@ -7,7 +7,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private int fps;
     [SerializeField] private float gravityScale = -30f;
     
-    private int enemiesTotal;
+    [HideInInspector] public int enemiesTotal;
     [HideInInspector] public int enemiesKilled;
 
     private bool death;
