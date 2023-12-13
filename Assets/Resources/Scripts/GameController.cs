@@ -15,7 +15,7 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null) instance = this;
+        instance = this;
         
         Application.targetFrameRate = fps; 
         Physics.gravity = new Vector3(0, gravityScale, 0);
@@ -53,12 +53,11 @@ public class GameController : MonoBehaviour
 
         if (PlayerController.instance)
         {
-            Destroy(PlayerController.instance.GetComponent<Rigidbody>());
-            foreach (var boxCollider in PlayerController.instance.GetComponents<BoxCollider>()) Destroy(boxCollider);
-            Destroy(PlayerController.instance.GetComponent<PlayerController>());
-            Destroy(PlayerController.instance.weaponCamera);
+            PlayerController.instance.GetComponent<Rigidbody>().isKinematic = true;
+            foreach (var boxCollider in PlayerController.instance.GetComponents<BoxCollider>()) boxCollider.enabled = false;
+            PlayerController.instance.GetComponent<PlayerController>().enabled = false;
+            PlayerController.instance.weaponCamera.SetActive(false);
         }
-        
     }
     
     private void Death()
@@ -69,10 +68,10 @@ public class GameController : MonoBehaviour
         {
             PlayerController.instance.transform.position = new Vector3(PlayerController.instance.transform.position.x,
                 0.05f, PlayerController.instance.transform.position.z);
-            Destroy(PlayerController.instance.GetComponent<Rigidbody>());
-            foreach (var boxCollider in PlayerController.instance.GetComponents<BoxCollider>()) Destroy(boxCollider);
-            Destroy(PlayerController.instance.GetComponent<PlayerController>());
-            Destroy(PlayerController.instance.weaponCamera);
+            PlayerController.instance.GetComponent<Rigidbody>().isKinematic = true;
+            foreach (var boxCollider in PlayerController.instance.GetComponents<BoxCollider>()) boxCollider.enabled = false;
+            PlayerController.instance.GetComponent<PlayerController>().enabled = false;
+            PlayerController.instance.weaponCamera.SetActive(false);
         }
     }
 }

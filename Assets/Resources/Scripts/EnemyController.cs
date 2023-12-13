@@ -89,11 +89,13 @@ public class EnemyController : MonoBehaviour
     private void Shoot()
     {
         audioSource.Play();
-        
-        GameObject bullet = Instantiate(enemyBullet, gunBarrel.position, gunBarrel.transform.rotation);
+
+        GameObject bullet = ObjectPooling.instance.GetPooledEnemyBulletObject();
+        bullet.transform.position = gunBarrel.position;
+        bullet.transform.rotation = gunBarrel.transform.rotation;
+        bullet.SetActive(true);
         bullet.GetComponent<Rigidbody>().AddForce(bullet.GetComponent<Rigidbody>().transform.forward * 1500f);
         bullet.GetComponent<EnemyBulletController>().damage = damage;
-        Destroy(bullet, 3f);
 
         shootCooldown = shootCooldownDefault;
     }
@@ -114,11 +116,10 @@ public class EnemyController : MonoBehaviour
             animator.Play("Death 1");
         else
             animator.Play("Death 2");
-        
-        Destroy(GetComponent<EnemyController>());
-        Destroy(GetComponent<CapsuleCollider>());
-        Destroy(enemy);
-        Destroy(animator, 4f);
+
+        GetComponent<EnemyController>().enabled = false;
+        GetComponent<CapsuleCollider>().enabled = false;
+        enemy.enabled = false;
     }
 
     public void GoAlerted()

@@ -4,6 +4,6 @@ public class AmmoPack : Interactable
     {
         GunController.instance.totalAmmo += 5;
         UIManager.instance.UpdateAmmo();
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

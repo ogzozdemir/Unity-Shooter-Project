@@ -12,15 +12,14 @@ public class CameraController : MonoBehaviour
     private float xRotation;
     private float yRotation;
 
-    private void Awake()
-    {
-        if (instance == null) instance = this;
-    }
+    private void Awake() => instance = this;
 
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        yRotation = 68.32f;
     }
 
     private void Update()

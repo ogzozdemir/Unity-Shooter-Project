@@ -13,9 +13,6 @@ public class GunController : MonoBehaviour
     [SerializeField] private Transform gunBarrel;
     [SerializeField] private Transform ejectionPort;
     [SerializeField] private ParticleSystem muzzleFlash;
-    [SerializeField] private GameObject bulletCasing;
-    [SerializeField] private GameObject bulletImpactPrefab;
-    [SerializeField] private GameObject enemyImpactPrefab;
     
     [Header("Gun")] [Space]
     public int damage;
@@ -32,7 +29,7 @@ public class GunController : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null) instance = this;
+        instance = this;
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
     }
@@ -125,13 +122,17 @@ public class GunController : MonoBehaviour
         {
             if (hit.transform.gameObject.layer != LayerMask.NameToLayer("Enemy"))
             {
-                GameObject impact = Instantiate(bulletImpactPrefab, hit.point, Quaternion.LookRotation(hit.normal));
-                Destroy(impact, 1f);
+                GameObject impact = ObjectPooling.instance.GetPooledBulletHitObject();
+                impact.transform.position = hit.point;
+                impact.transform.LookAt(hit.normal);
+                impact.SetActive(true);
             }
             else
             {
-                GameObject impact = Instantiate(enemyImpactPrefab, hit.point, Quaternion.LookRotation(hit.normal));
-                Destroy(impact, 1f);
+                GameObject impact = ObjectPooling.instance.GetPooledBulletEnemyHitObject();
+                impact.transform.position = hit.point;
+                impact.transform.LookAt(hit.normal);
+                impact.SetActive(true);
                 
                 hit.transform.gameObject.GetComponent<EnemyController>().GoAlerted();
                 hit.transform.gameObject.GetComponent<EnemyController>().enemyHealth -= damage;
@@ -141,15 +142,13 @@ public class GunController : MonoBehaviour
 
     private void EjectCasing()
     {
-        GameObject casing = Instantiate(bulletCasing, ejectionPort.position, Quaternion.identity);
+        GameObject casing = ObjectPooling.instance.GetPooledShellObject();
+        casing.transform.position = ejectionPort.position;
+        casing.SetActive(true);
         casing.GetComponent<Rigidbody>().AddForce(transform.TransformDirection(Vector3.up * Random.Range(50f, 100f)) + transform.TransformDirection(Vector3.right) * Random.Range(50f, 100f));
-        Destroy(casing, 1f);
     }
 
-    private void ShootReset()
-    {
-        canShoot = true;
-    }
+    private void ShootReset() => canShoot = true;
 
     private void Reload()
     {

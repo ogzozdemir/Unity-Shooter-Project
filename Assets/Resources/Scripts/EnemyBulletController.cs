@@ -3,11 +3,10 @@ using UnityEngine;
 public class EnemyBulletController : MonoBehaviour
 {
     [HideInInspector] public int damage;
-    [SerializeField] private GameObject bulletImpactPrefab;
 
     private void Update()
     {
-        if (PlayerController.instance)
+        if (PlayerController.instance && gameObject.activeSelf)
         {
             if (Vector3.Distance(PlayerController.instance.transform.position, transform.position) <= 1f)
             {
@@ -15,18 +14,20 @@ public class EnemyBulletController : MonoBehaviour
                 UIManager.instance.GetHit();
                 if (PlayerController.instance.playerHealth > 0)
                     CameraShake.Invoke();
-                Destroy(gameObject);
+                gameObject.SetActive(false);
             }
         }
     }
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Ground") && gameObject.activeSelf)
         {
-            GameObject impact = Instantiate(bulletImpactPrefab, other.collider.transform.position, Quaternion.identity);
-            Destroy(impact, 1f);
-            Destroy(gameObject);
+            GameObject impact = ObjectPooling.instance.GetPooledBulletHitObject();
+            impact.transform.position = other.collider.transform.position;
+            impact.SetActive(true);
+            
+            gameObject.SetActive(false);
         }
     }
 }

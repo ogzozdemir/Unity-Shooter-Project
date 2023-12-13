@@ -8,14 +8,11 @@ public class CameraShake : MonoBehaviour
     [SerializeField] private Vector3 positionStrength;
     [SerializeField] private Vector3 rotationStrength;
     [SerializeField] private float duration;
-
+    
     private static event Action Shake;
     
-    public static void Invoke()
-    {
-        Shake?.Invoke();
-    }
-
+    public static void Invoke() => Shake?.Invoke();
+    
     private void OnEnable() => Shake += ShakeMethod;
     private void OnDisable() => Shake -= ShakeMethod;
 

@@ -6,7 +6,7 @@ public class HealthPack : Interactable
         {
             PlayerController.instance.playerHealth += 25;
             UIManager.instance.UpdateHealth();
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }

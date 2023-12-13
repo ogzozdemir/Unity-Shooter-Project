@@ -20,10 +20,7 @@ public class UIManager : MonoBehaviour
 
     private float waitTime;
 
-    private void Awake()
-    {
-        if (instance == null) instance = this;
-    }
+    private void Awake() => instance = this;
 
     private void Start()
     {
@@ -49,25 +46,16 @@ public class UIManager : MonoBehaviour
         enemiesText.text = "Kill them all! (" + enemiesKilled + "/" + enemiesTotal + ")";
     }
     
-    public void UpdateInteractMessage(string message)
-    {
-        interactMessage.text = message;
-    }
+    public void UpdateInteractMessage(string message) => interactMessage.text = message;
     
-    public void UpdateHealth()
-    {
-        healthText.text = PlayerController.instance.playerHealth.ToString();
-    }
+    public void UpdateHealth() => healthText.text = PlayerController.instance.playerHealth.ToString();
 
-    public void UpdateAmmo()
-    {
-        ammoText.text = GunController.instance.currentAmmo + "/" + GunController.instance.totalAmmo;
-    }
+    public void UpdateAmmo() => ammoText.text = GunController.instance.currentAmmo + "/" + GunController.instance.totalAmmo;
 
     public void GetHit()
     {
-        GameObject hit = Instantiate(hitRed, transform, false);
-        hit.GetComponent<Animator>().Play("Fade Out");
+        hitRed.SetActive(true);
+        hitRed.GetComponent<Animator>().Play("Fade Out");
         UpdateHealth();
     }
 

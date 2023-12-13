@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
     
     private void Awake()
     {
-        if (instance == null) instance = this;
+        instance = this;
 
         rb = GetComponent<Rigidbody>();
         characterHeight = GetComponent<BoxCollider>().size.y;

@@ -8,6 +8,7 @@ Welcome to my first FPS game​​ I quickly created with the aim of expanding m
 - Firefight with enemies (enemy pathfinding with navmesh)
 - Pistol animations and bullet shell casing ejection (animations were made by me)
 - Interaction with objects (health and ammo packs)
+- Object pooling
 - Camera shake and particle effects
 - Sound effects
 
